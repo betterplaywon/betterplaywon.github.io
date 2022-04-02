@@ -1,11 +1,11 @@
 ---
 title: "Post: JS 형 변환"
 categories:
-  - Post Fromats
-tags:
   - Post Formats
-  - readability
-  - standard
+tags:
+  - JS
+  - CODING
+  - BASIC
 ---
 
 # true / false인 이유
@@ -30,15 +30,15 @@ undefined == undefined 로서 true가 된 것 같았다.<br>
 
 ## 2) 0 == [ ]
 원시 데이터와 참조형 데이터를 비교하는 것.
-빈 배열의 값은 결국 빈 문자열 ''을 의미하는 것이고, 존재하지 않는 것이니
+빈 배열의 값은 결국 빈 문자열 ''을 의미하는 것이고, 존재하지 않는 것이니<br>
 undefined라고 생각했다.
 
 그래서 해당 항목도 true가 된 것 같다고 추측했다.
 
 
 ## 3) '0' == [ ]
-여기서 나의 논리가 틀렸다는 것을 알 수 있었다.
-문자열 '0'도 undefined고, 빈 배열도 undefined라면 true가 되어야 하는데
+여기서 나의 논리가 틀렸다는 것을 알 수 있었다.<br>
+문자열 '0'도 undefined고, 빈 배열도 undefined라면 true가 되어야 하는데<br>
 쌩뚱맞은 false가 정답이었다.
 
 <br>
@@ -175,6 +175,6 @@ if(0) {
 <br>
 
 Reference
-[연산자에 따른 형변환](https://codedragon.tistory.com/5589)
-[전체적인 형 변환 정리](https://velog.io/@yejinh/Javascript-%ED%98%95%EB%B3%80%ED%99%98)
-[자바스크립트에서 false로 간주되는 것들](https://studymake.tistory.com/484)
+[연산자에 따른 형변환](https://codedragon.tistory.com/5589)<br>
+[전체적인 형 변환 정리](https://velog.io/@yejinh/Javascript-%ED%98%95%EB%B3%80%ED%99%98)<br>
+[자바스크립트에서 false로 간주되는 것들](https://studymake.tistory.com/484)<br>
