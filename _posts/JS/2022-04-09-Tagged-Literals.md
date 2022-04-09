@@ -1,5 +1,5 @@
 ---
-title: "Post: JS 형 변환"
+title: "Post: Tagged Literals"
 categories:
   - Post Formats
 tags:
