@@ -61,7 +61,7 @@ Model이 데이터를 어떻게 처리할지 알려주는 역할을 담당한다
 
 ## MVC 패턴의 5가지 규칙
 
-> 1. Model은 Controller와 View에 의존하지 않아야 한다.
+> Model은 Controller와 View에 의존하지 않아야 한다.
 
 유저가 작동시키려는 데이터만 지닌 채로<br>
 View나 Controller에서 다뤄지는 데이터에 대해서는 연관되지 않아야 한다.<br>
@@ -69,28 +69,28 @@ View나 Controller에서 다뤄지는 데이터에 대해서는 연관되지 않
 
 <br>
 
-> 2. View는 Model에만 의존해야하고, Controller에는 의존하면 안된다
+> View는 Model에만 의존해야하고, Controller에는 의존하면 안된다
 
 View 내부에서는 Model과 관련된 코드(객체의 메서드)가 있을 수 있지만,<br>
 Controller 관련 코드가 있으면 안 된다.<br>
 
 <br>
 
-> 3. View 가 Model 로부터 데이터를 받을 때는, 사용자마다 다르게 보여주어야하는 데이터만 받아야 한다.
+> View 가 Model 로부터 데이터를 받을 때는, 사용자마다 다르게 보여주어야하는 데이터만 받아야 한다.
 
 공통으로 보이는 부분은 View 코드로만 처리해주는 것이,<br>
 서로 다르게 보이는 부분들은 Model에서 가져와서 보여주는 것이 바람직하다.<br>
 
 <br>
 
-> 4.Controller는 Model과 View에 의존해도 된다.
+> Controller는 Model과 View에 의존해도 된다.
 
 Controller는 Model과 View 사이에 위치해 명령을 교류하는 곳이므로<br>
 Controller 내부에는 Model과 View 코드가 포함될 수 있다.<br>
 
 <br>
 
-> 5. View가 Model로부터 데이터를 받을 때, 반드시 Controller를 통해서 받아야 한다.
+> View가 Model로부터 데이터를 받을 때, 반드시 Controller를 통해서 받아야 한다.
 
 Model애서 바로 View를 호출하는 것 또한 안된다.<br>
 Model은 로직을 구현하는 목표에 집중해야 하며,<br>
