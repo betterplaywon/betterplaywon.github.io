@@ -111,7 +111,6 @@ Controller를 통해 데이터의 교류가 있으므로 의존성을 지니고 
 이를  Massive-View-Controller 현상이라고 하며<br>
 보완하기 위해 MVP, MVVM, Flux, Redux등의 다양한 패턴들이 고안되었다.<br>
 
-
 <br>
 
 Reference<br>
