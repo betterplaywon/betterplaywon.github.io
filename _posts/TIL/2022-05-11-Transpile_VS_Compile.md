@@ -1,5 +1,5 @@
 ---
-title: "Post: Pollyfill"
+title: "Post: Tranpile과 Compile"
 categories:
   - Post Formats
 tags:
