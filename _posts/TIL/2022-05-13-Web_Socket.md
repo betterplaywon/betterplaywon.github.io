@@ -1,5 +1,5 @@
 ---
-title: "Post: WebSocket"
+title: "Post: Web Socket"
 categories:
   - Post Formats
 tags:
@@ -286,25 +286,96 @@ HTML5 이전의 기술로 구현된 서비스에서는 어떻게 사용해야 �
 
   클라이언트측에서 반드시 socket.io-client 라이브러리를 이용해야 한다.
 
+<br>
+
+### Client 측 Socket.io
+
+서버에서 처리해주는 socket.io보단 front에서 처리하는 socket.io에 대해 알아보겠다.
+
+<br>
+
+#### 1. 서버로의 메시지 송신(= 발신)
+
+현재 접속되어 있는 서버로 `메시지를 송신(=발신)`하기 위해서는 `emit 메소드`를 사용한다.
+
+<br>
+
+<table border="1">
+	<th>Parameter</th>
+	<th>Description</th>
+	<tr><!-- 첫번째 줄 시작 -->
+	    <td>event name</td>
+	    <td>이벤트 명(string)</td>
+	</tr><!-- 첫번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <td>msg</td>
+	    <td>송신 메시지(string or object)</td>
+	</tr><!-- 두번째 줄 끝 -->
+    </table>
+
+<br>
+
+```test.js
+socket.emit("event_name", msg);
+```
+
+<br>
+<br>
+
+#### 2. 서버로부터의 메시지 수신
+
+현재 접속되어 있는 서버로부터의 `메시지를 수신`하기 위해서는 `on 메소드`를 사용한다.
+
+<table border="1">
+	<th>Parameter</th>
+	<th>Description</th>
+	<tr><!-- 첫번째 줄 시작 -->
+	    <td>event name</td>
+	    <td>서버가 메시지 송신 시 지정한 이벤트 명(string)</td>
+	</tr><!-- 첫번째 줄 끝 -->
+	<tr><!-- 두번째 줄 시작 -->
+	    <td>msg</td>
+	    <td>이벤트 핸들러. 핸들러 함수의 인자에 서버가 송신한 메시지가 전달된다.</td>
+	</tr><!-- 두번째 줄 끝 -->
+    </table>
 
 
+```test.js
+socket.on("event_name", function(data) {
+  console.log('Message from Server: ' + data);
+});
+
+```
+
+<br>
+
+## Namespace
+
+socket.io는 서로 다른 엔드포인트(endpoint) 또는 경로(path)를 할당하는 의미로 socket에 namespace를 지정할 수 있다.
+
+namespace를 특별히 지정하지 않은 경우 default namespace인 /를 사용하게 된다.
+
+사용자 지정 namespace를 사용할 경우의 예제는 아래와 같다.
 
 
+```test.js
+// Server-side
+const nsp = io.of('/my-namespace');
+
+nsp.on('connection', function(socket){
+  console.log('someone connected'):
+});
+nsp.emit('hi', 'everyone!');
+```
+
+```test.js
+// Client-side
+// 지정 namespace로 접속한다
+const socket = io('/my-namespace');
+```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+<br>
 <br>
 
 ### Reference
@@ -320,5 +391,7 @@ HTML5 이전의 기술로 구현된 서비스에서는 어떻게 사용해야 �
 [WebSocket ref blog 02](https://medium.com/@twizzledhongssiiiiiiii/%EA%B9%9C%EC%B0%8D%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EB%93%A4%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B0%84%EB%8B%A8%ED%95%9C-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%83%81%EC%8B%9D-2-2-http%EB%A5%BC-%EB%84%98%EC%96%B4%EC%84%9C-%EC%8B%A4%EC%8B%9C%EA%B0%84-%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%82%B9websocket-c49125e1b5a0)
 
 [Server Event를 Client로 보내는 4가지 방법](https://inpa.tistory.com/entry/WEB-%F0%9F%93%9A-Polling-Long-Polling-Server-Sent-Event-WebSocket-%EC%9A%94%EC%95%BD-%EC%A0%95%EB%A6%AC)
+
+[Socket.io 예제](https://poiemaweb.com/nodejs-socketio)
 
 [WebSocket 사용 방법 예제](https://walkingplow.tistory.com/87)
