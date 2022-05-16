@@ -67,9 +67,154 @@ tags:
 
 # 사용 예시
 
-[예시 blog](https://www.daleseo.com/react-hooks-use-callback/)
+```js
+//Result.js
+import React, { useState } from 'react';
+import SmartHome from './SmartHome';
 
+const Result = () => {
+  return (
+    <div style={{ position: 'absolute', top: '50%', left: '50%' }}>
+      <SmartHome />
+    </div>
+  );
+};
 
+export default Result;
+```
+
+```js
+// Light.js
+import React from 'react';
+
+function Light({ room, on, toggle }) {
+  console.log({ room, on });
+  return (
+    <div>
+      <button onClick={toggle}>
+        {room}
+        {on ? '💡' : '⬛'}
+      </button>
+    </div>
+  );
+}
+
+export default React.memo(Light);
+```
+
+```js
+// SmartHome.js
+import React, { useState, useCallback } from 'react';
+import Light from './Light';
+
+function SmartHome() {
+  const [masterOn, setMasterOn] = useState(false);
+  const [kitchenOn, setKitchenOn] = useState(false);
+  const [bathOn, setBathOn] = useState(false);
+
+  const toggleMaster = () => {
+    setMasterOn(!masterOn);
+  };
+  const toggleKitchen = () => {
+    setKitchenOn(!kitchenOn);
+  };
+  const toggleBath = () => {
+    setBathOn(!bathOn);
+  };
+
+  return (
+    <div>
+      <Light room="침실" on={masterOn} toggle={toggleMaster}></Light>
+      <Light room="주방" on={kitchenOn} toggle={toggleKitchen}></Light>
+      <Light room="욕실" on={bathOn} toggle={toggleBath}></Light>
+    </div>
+  );
+}
+
+export default SmartHome;
+
+```
+
+<br>
+
+#### useCallback 적용 전
+
+<br>
+
+<img src='https://user-images.githubusercontent.com/78709765/168551102-05780860-d570-4669-987d-5efe07bf6adc.png' width='600px'/>
+
+<br>
+
+Light.js 에서 react.memo를 적용해 불필요한 리렌더링을
+
+막아주려는 시도를 했지만 react.memo는 제 역할을 수행하지 못했다.
+
+그 이유는 `함수는 객체`이기 때문이다.
+
+`리렌더링이 발생`하면 `해당 컴포넌트의 모든 객체들은 다시 생성`된다.
+
+JS에서 객체는 Reference type으로
+
+동일한 value를 지니더라도 `참조하는 주소가 다르다`면 `서로 다른 객체`로 여긴다.
+
+컴포넌트는 리렌더링될 때마다 새로운 함수를 생성하며
+
+Reac.memo는 상위 컴포넌트에서 넘겨받는 props가 변경되었다고 인지해
+
+계속 리렌더링을 하는 것이다.
+
+<br>
+<br>
+
+#### useCallback과 react.memo 적용 후
+
+<br>
+
+```js
+import React, { useState, useCallback } from 'react';
+import Light from './Light';
+
+function SmartHome() {
+  const [masterOn, setMasterOn] = useState(false);
+  const [kitchenOn, setKitchenOn] = useState(false);
+  const [bathOn, setBathOn] = useState(false);
+
+  const toggleMaster = useCallback(() => {
+    setMasterOn(!masterOn);
+  }, [masterOn]);
+  const toggleKitchen = useCallback(() => {
+    setKitchenOn(!kitchenOn);
+  }, [kitchenOn]);
+  const toggleBath = useCallback(() => {
+    setBathOn(!bathOn);
+  }, [bathOn]);
+
+  return (
+    <div>
+      <Light room="침실" on={masterOn} toggle={toggleMaster}></Light>
+      <Light room="주방" on={kitchenOn} toggle={toggleKitchen}></Light>
+      <Light room="욕실" on={bathOn} toggle={toggleBath}></Light>
+    </div>
+  );
+}
+
+export default SmartHome;
+
+```
+
+<br>
+
+<img src='https://user-images.githubusercontent.com/78709765/168551572-8a07d062-1d3c-4fef-91ca-360132213403.png' width='600px'/>
+
+<br>
+
+주방 버튼을 클릭하면 주방에 대한 Light 컴포넌트만 리렌더링 된 것을 볼 수 있다.
+
+useCallback을 사용함으로서 deps 배열 내부의 state가 변할 때에만 새로운 객체를 생성하게 되었고
+
+state가 변하지 않는다면 동일한 객체를 전달해줌으로 불필요한 리렌더링을 방지할 수 있게 되었다.
+
+ 
 
 
 <br>
@@ -83,3 +228,5 @@ tags:
 [useCallback 간략 정리 blog](https://2ham-s.tistory.com/328)
 
 [Velopert, useCallback](https://react.vlpt.us/basic/18-useCallback.html)
+
+[ref blog](https://leego.tistory.com/entry/React-useCallback%EA%B3%BC-useMemo-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
