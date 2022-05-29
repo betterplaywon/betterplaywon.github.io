@@ -123,7 +123,7 @@ useDeferredValue를 사용하면, 급하지 않은 부분의 `재렌더링을 �
 
 ## useDefrredValue 예시
 
-<img src='[https://user-images.githubusercontent.com/78709765/170857021-399751d4-3ba3-447c-8e5b-5e4216e37bf8.png](https://user-images.githubusercontent.com/78709765/170857495-60387f91-b9d7-4618-8852-1684dd05a1f5.png)' width='700px'/>
+<img src='https://user-images.githubusercontent.com/78709765/170857495-60387f91-b9d7-4618-8852-1684dd05a1f5.png' width='700px'/>
 
 
 <br>
